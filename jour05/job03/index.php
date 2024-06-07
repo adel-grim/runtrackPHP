@@ -13,7 +13,7 @@ try {
     exit();
 }
 
-// Récupérer les données de la table "etudiant"
+
 try {
     $stmt = $pdo->query("SELECT * FROM etudiant");
     $etudiants = $stmt->fetchAll(PDO::FETCH_ASSOC);
