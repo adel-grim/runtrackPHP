@@ -83,7 +83,7 @@ function check_draw($grille) {
             width: 200px;
             height: 200px;
             text-align: center;
-            font-size:40px;
+            font-size:70px;
             color: red;
         }
         button {
