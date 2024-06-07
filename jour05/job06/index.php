@@ -1,8 +1,8 @@
 <?php
-$host = 'localhost'; // Nom d'hôte
-$dbname = 'jour05'; // Nom de la base de données
-$username = 'root'; // Nom d'utilisateur de la base de données
-$password = ''; // Mot de passe de la base de données (laisser vide si vous n'en avez pas)
+$host = 'localhost'; 
+$dbname = 'jour05'; 
+$username = 'root'; 
+$password = ''; 
 
 // Connexion à la base de données
 try {

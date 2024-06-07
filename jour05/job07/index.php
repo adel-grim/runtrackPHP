@@ -4,7 +4,6 @@ $dbname = 'jour05';
 $username = 'root'; 
 $password = ''; 
 
-
 // Connexion à la base de données
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
@@ -14,9 +13,9 @@ try {
     exit();
 }
 
-
+// Récupérer les données des étudiants qui ont moins de 18 ans
 try {
-    $stmt = $pdo->query("SELECT prenom, nom, naissance FROM etudiant WHERE sexe = 'Femme'");
+    $stmt = $pdo->query("SELECT * FROM etudiant WHERE YEAR(CURDATE()) - YEAR(naissance) < 18");
     $etudiants = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     echo "Erreur de requête : " . $e->getMessage();
@@ -27,7 +26,7 @@ try {
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Liste des étudiantes</title>
+    <title>Liste des étudiants</title>
     <style>
         table {
             border-collapse: collapse;
@@ -44,27 +43,33 @@ try {
     </style>
 </head>
 <body>
-    <h1>Liste des étudiantes</h1>
+    <h1>Liste des étudiants</h1>
     <table>
         <thead>
             <tr>
+                <th>ID</th>
                 <th>Prénom</th>
                 <th>Nom</th>
                 <th>Date de Naissance</th>
+                <th>Sexe</th>
+                <th>Email</th>
             </tr>
         </thead>
         <tbody>
             <?php if (count($etudiants) > 0): ?>
                 <?php foreach ($etudiants as $etudiant): ?>
                     <tr>
+                        <td><?php echo htmlspecialchars($etudiant['id']); ?></td>
                         <td><?php echo htmlspecialchars($etudiant['prenom']); ?></td>
                         <td><?php echo htmlspecialchars($etudiant['nom']); ?></td>
                         <td><?php echo htmlspecialchars($etudiant['naissance']); ?></td>
+                        <td><?php echo htmlspecialchars($etudiant['sexe']); ?></td>
+                        <td><?php echo htmlspecialchars($etudiant['email']); ?></td>
                     </tr>
                 <?php endforeach; ?>
             <?php else: ?>
                 <tr>
-                    <td colspan="3">Aucune étudiante trouvée.</td>
+                    <td colspan="6">Aucun étudiant trouvé.</td>
                 </tr>
             <?php endif; ?>
         </tbody>
