@@ -1,8 +1,8 @@
 <?php
-$host = 'localhost'; 
-$dbname = 'jour05'; /
-$username = 'root'; 
-$password = ''; 
+$host = 'localhost'; // Nom d'hôte
+$dbname = 'jour05'; // Nom de la base de données
+$username = 'root'; // Nom d'utilisateur de la base de données
+$password = ''; // Mot de passe de la base de données (laisser vide si vous n'en avez pas)
 
 // Connexion à la base de données
 try {
@@ -13,9 +13,9 @@ try {
     exit();
 }
 
-// Récupérer les données de la table "etudiant"
+// Récupérer les données des étudiants de sexe féminin
 try {
-    $stmt = $pdo->query("SELECT * FROM etudiant");
+    $stmt = $pdo->query("SELECT prenom, nom, naissance FROM etudiant WHERE sexe = 'Femme'");
     $etudiants = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     echo "Erreur de requête : " . $e->getMessage();
@@ -26,7 +26,7 @@ try {
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Liste des étudiants</title>
+    <title>Liste des étudiantes</title>
     <style>
         table {
             border-collapse: collapse;
@@ -43,33 +43,27 @@ try {
     </style>
 </head>
 <body>
-    <h1>Liste des étudiants</h1>
+    <h1>Liste des étudiantes</h1>
     <table>
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Prénom</th>
                 <th>Nom</th>
                 <th>Date de Naissance</th>
-                <th>Sexe</th>
-                <th>Email</th>
             </tr>
         </thead>
         <tbody>
             <?php if (count($etudiants) > 0): ?>
                 <?php foreach ($etudiants as $etudiant): ?>
                     <tr>
-                        <td><?php echo htmlspecialchars($etudiant['id']); ?></td>
                         <td><?php echo htmlspecialchars($etudiant['prenom']); ?></td>
                         <td><?php echo htmlspecialchars($etudiant['nom']); ?></td>
                         <td><?php echo htmlspecialchars($etudiant['naissance']); ?></td>
-                        <td><?php echo htmlspecialchars($etudiant['sexe']); ?></td>
-                        <td><?php echo htmlspecialchars($etudiant['email']); ?></td>
                     </tr>
                 <?php endforeach; ?>
             <?php else: ?>
                 <tr>
-                    <td colspan="6">Aucun étudiant trouvé.</td>
+                    <td colspan="3">Aucune étudiante trouvée.</td>
                 </tr>
             <?php endif; ?>
         </tbody>

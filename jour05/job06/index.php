@@ -1,8 +1,8 @@
 <?php
-$host = 'localhost'; 
-$dbname = 'jour05'; /
-$username = 'root'; 
-$password = ''; 
+$host = 'localhost'; // Nom d'hôte
+$dbname = 'jour05'; // Nom de la base de données
+$username = 'root'; // Nom d'utilisateur de la base de données
+$password = ''; // Mot de passe de la base de données (laisser vide si vous n'en avez pas)
 
 // Connexion à la base de données
 try {
@@ -13,9 +13,9 @@ try {
     exit();
 }
 
-// Récupérer les données de la table "etudiant"
+// Récupérer les données des étudiants dont le prénom commence par 'T'
 try {
-    $stmt = $pdo->query("SELECT * FROM etudiant");
+    $stmt = $pdo->query("SELECT * FROM etudiant WHERE prenom LIKE 'T%'");
     $etudiants = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     echo "Erreur de requête : " . $e->getMessage();
